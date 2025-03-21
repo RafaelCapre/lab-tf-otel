@@ -11,3 +11,28 @@ module "my_app" {
   otel_exporter_endpoint = "https://elastic.exemplo.com:4317"
 }
 
+2. (Opcional) Criar um backend pro state
+
+az group create --name tf-lab-rg --location eastus
+
+az storage account create \
+  --name tfstatelab \
+  --resource-group tf-lab-rg \
+  --location eastus \
+  --sku Standard_LRS
+
+az storage container create \
+  --name tfstate \
+  --account-name tfstatelab
+
+--- Crie um backend.tf no projeto
+
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "tf-lab-rg"
+    storage_account_name = "tfstatelab"
+    container_name       = "tfstate"
+    key                  = "terraform.tfstate"
+  }
+}
+ 
