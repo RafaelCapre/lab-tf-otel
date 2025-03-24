@@ -1,7 +1,7 @@
 ## Como criar sua aplicação instrumentada com OpenTelemetry para Elastic
 
-1. Crie um arquivo Terraform no seu ambiente:
 ```hcl
+1. Crie um arquivo Terraform no seu ambiente:
 module "my_app" {
   source                 = "../../modules/container-app"
   app_name               = "sua-app"
